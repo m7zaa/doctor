@@ -32,14 +32,20 @@ $(document).ready(function () {
     let nameFinder = new NameFinder(lastName);
     let promise2 = nameFinder.findName(lastName);
 
-
     promise2.then(function(response) {
       const body2 = JSON.parse(response);
-      console.log(body2.data[0].profile.first_name);
-      console.log(body2);
-      console.log(body2.data[0].practices[0].name);
+      // console.log(body2.data[0].profile.first_name);
+      // console.log(body2.data[0].practices);
+      // console.log(body2.data[0].practices[0].name);
 
-      $(".doctorList").html(`Here is a list of Doctors: ${body2.data[0].practices[0].name}`);
+      let docs = [];
+      for (var i = 0; i < body2.data[0].practices.length; i++) {
+        docs.push(body2.data[0].practices[i].name);
+        console.log(docs);
+      }
+
+
+      $(".doctorList").html(`Here is a list of Doctors: ${docs} ${body2.data[0].practices[0].name}`);
     }, function(error) {
       $('.showErrors').text(`There was an error processing your request: ${error.message}`);
       // ${body.data[2].profile.first_name}

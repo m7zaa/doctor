@@ -17,31 +17,36 @@ $(document).ready(function () {
       let docPhone = [];
       let docAddress = [];
 
+
       if (body.meta.total === 0) {
        console.log("if undefined");
        $(".doctorList").html(`There are no doctors that meet your search perameters`);
       } else {
-        for (var i = 0; i < body.data[0].length; i++) {
-          newPatients.push(body.data[0].practices[i].accepts_new_patients);
-          docPhone.push(body.data[0].practices[i].phones[0].number);
-          docAddress.push(body.data[0].practices[i].visit_address.street + ", " +  body.data[0].practices[i].visit_address.street2 + ", " + body.data[0].practices[i].visit_address.city + ", " + body.data[0].practices[i].visit_address.state + ", " + body.data[0].practices[i].visit_address.zip);
+        for (var i = 0; i < body.data.length; i++) {
+          newPatients.push(body.data[i].practices[0].accepts_new_patients);
+          // docPhone.push(body.data[0].practices[i].phones[0].number);
+          // docAddress.push(body.data[0].practices[i].visit_address.street + ", " +  body.data[0].practices[i].visit_address.street2 + ", " + body.data[0].practices[i].visit_address.city + ", " + body.data[0].practices[i].visit_address.state + ", " + body.data[0].practices[i].visit_address.zip);
           $(".doctorList").html(`Here is a list of Doctors: ${docName}`);
         };
+        console.log(newPatients);
+        console.log(body);
 
-        for (var p = 0; p < body.data[0].length; p++) {
-          docPhone.push(body.data[0].practices[p].phones[0].number);
-        }
-        console.log(docPhone);
+
+
         for (var j = 0; j < body.data.length; j++) {
           docName.push(body.data[j].profile.first_name + " " + body.data[j].profile.last_name);
         }
         console.log(docName);
-        var list = [];
-        for (var x = 0; x < docName.length; x++)
-        list.push({'name': docName[x], 'phone': docPhone[x], "address": docAddress[x], 'accepting new patients': newPatients[x]});
+
+
+
+
       };
 
-      console.log(list);
+      // var list = [];
+      // for (var x = 0; x < docName.length; x++)
+      // list.push({'name': docName[x], 'phone': docPhone[x], "address": docAddress[x], 'accepting new patients': newPatients[x]});
+      // console.log(list);
       //
       // //2) sort:
       // list.sort(function(a, b) {

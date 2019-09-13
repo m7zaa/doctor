@@ -19,13 +19,22 @@ $(document).ready(function () {
       let newPatients = [];
       let docPhone = [];
       let docAddress = [];
-      for (var i = 0; i < body.data[0].practices.length; i++) {
-        docName.push(body.data[0].practices[i].name);
-        newPatients.push(body.data[0].practices[i].accepts_new_patients);
-        docPhone.push(body.data[0].practices[i].phones[0].number);
-        docAddress.push(body.data[0].practices[i].visit_address.street + ", " +  body.data[0].practices[i].visit_address.street2 + ", " + body.data[0].practices[i].visit_address.city + ", " + body.data[0].practices[i].visit_address.state + ", " + body.data[0].practices[i].visit_address.zip);
+      let docWebsite = [];
+      console.log(body.data[0]);
 
-      };
+      if (body.meta.total === 0) {
+       console.log("if undefined");
+       $(".doctorList").html(`There are no doctors that meet your search perameters`);
+      } else {
+        for (var i = 0; i < body.data[0].practices.length; i++) {
+          docName.push(body.data[0].profile.first_name + " " + body.data[0].profile.last_name);
+          newPatients.push(body.data[0].practices[i].accepts_new_patients);
+          docPhone.push(body.data[0].practices[i].phones[0].number);
+          docAddress.push(body.data[0].practices[i].visit_address.street + ", " +  body.data[0].practices[i].visit_address.street2 + ", " + body.data[0].practices[i].visit_address.city + ", " + body.data[0].practices[i].visit_address.state + ", " + body.data[0].practices[i].visit_address.zip);
+          docWebsite.push(body.data[0].practices[i].phones[0].number);
+        };
+
+      }
 
       console.log(docAddress);
       console.log(docName);

@@ -21,23 +21,28 @@ $(document).ready(function () {
        console.log("if undefined");
        $(".doctorList").html(`There are no doctors that meet your search perameters`);
       } else {
-        for (var i = 0; i < body.data[0].practices.length; i++) {
-
-          docName.push(body.data[0].profile.first_name + " " + body.data[0].profile.last_name);
+        for (var i = 0; i < body.data[0].length; i++) {
           newPatients.push(body.data[0].practices[i].accepts_new_patients);
           docPhone.push(body.data[0].practices[i].phones[0].number);
           docAddress.push(body.data[0].practices[i].visit_address.street + ", " +  body.data[0].practices[i].visit_address.street2 + ", " + body.data[0].practices[i].visit_address.city + ", " + body.data[0].practices[i].visit_address.state + ", " + body.data[0].practices[i].visit_address.zip);
           $(".doctorList").html(`Here is a list of Doctors: ${docName}`);
         };
-      };
-      let fullList = docName.concat(docPhone, docAddress, newPatients);
-      console.log(fullList);
 
-      //1) combine the arrays:
-      var list = [];
-      for (var j = 0; j < docName.length; j++)
-          list.push({'name': docName[j], 'phone': docPhone[j], "address": docAddress[j], 'accepting new patients': newPatients});
-          console.log(list);
+        for (var p = 0; p < body.data[0].length; p++) {
+          docPhone.push(body.data[0].practices[p].phones[0].number);
+        }
+        console.log(docPhone);
+        for (var j = 0; j < body.data.length; j++) {
+          docName.push(body.data[j].profile.first_name + " " + body.data[j].profile.last_name);
+        }
+        console.log(docName);
+        var list = [];
+        for (var x = 0; x < docName.length; x++)
+        list.push({'name': docName[x], 'phone': docPhone[x], "address": docAddress[x], 'accepting new patients': newPatients[x]});
+      };
+
+      console.log(list);
+      //
       // //2) sort:
       // list.sort(function(a, b) {
       //     return ((a.name < b.name) ? -1 : ((a.name == b.name) ? 0 : 1));
@@ -47,8 +52,10 @@ $(document).ready(function () {
       //
       // //3) separate them back out:
       // for (var k = 0; k < list.length; k++) {
-      //     names[k] = list[k].name;
-      //     ages[k] = list[k].age;
+      //     docName[k] = list[k].name;
+      //     docPhone[k] = list[k].phone;
+      //     docAddress[k] = list[k].address;
+      //     newPatients[k] = list[k].newPatient;
       // }
 
 
@@ -82,13 +89,16 @@ $(document).ready(function () {
        console.log("if undefined");
       } else {
         for (var i = 0; i < body2.data[0].practices.length; i++) {
-          docName.push(body2.data[0].profile.first_name + " " + body2.data[0].profile.last_name);
           newPatients.push(body2.data[0].practices[i].accepts_new_patients);
           docPhone.push(body2.data[0].practices[i].phones[0].number);
           docAddress.push(body2.data[0].practices[i].visit_address.street + ", " +  body2.data[0].practices[i].visit_address.street2 + ", " + body2.data[0].practices[i].visit_address.city + ", " + body2.data[0].practices[i].visit_address.state + ", " + body2.data[0].practices[i].visit_address.zip);
           $(".doctorList").html(`Here is a list of Doctors: ${docName}`);
         };
+        for (var j = 0; j < body2.data.length; j++) {
+          docName.push(body2.data[j].profile.first_name + " " + body2.data[j].profile.last_name);
+        }
       };
+
       console.log(docAddress);
       console.log(docName);
       console.log(docPhone);

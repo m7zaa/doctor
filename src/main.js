@@ -35,11 +35,11 @@ $(document).ready(function () {
 
     promise2.then(function(response) {
       const body2 = JSON.parse(response);
-      // console.log(body.data[0].profile.first_name);
+      console.log(body2.data[0].profile.first_name);
       console.log(body2);
-      console.log(body2.data[0].practices[1]);
-      console.log(body2.data[0].practices[1,2,3,4,5,6,7,8,9,10]);
-      $(".doctorList").text(`Here is a list of Doctors: ${body2.data.practices}`);
+      console.log(body2.data[0].practices[0].name);
+
+      $(".doctorList").html(`Here is a list of Doctors: ${body2.data[0].practices[0].name}`);
     }, function(error) {
       $('.showErrors').text(`There was an error processing your request: ${error.message}`);
       // ${body.data[2].profile.first_name}

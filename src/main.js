@@ -14,13 +14,27 @@ $(document).ready(function () {
 
     promise.then(function(response) {
       const body = JSON.parse(response);
-      // console.log(body.data[0].profile.first_name);
       console.log(body);
-      // $(".doctorList").text(`Here is a list of Doctors: ${body.data[0]}`);
+      let docName = [];
+      let newPatients = [];
+      let docPhone = [];
+      let docAddress = [];
+      for (var i = 0; i < body.data[0].practices.length; i++) {
+        docName.push(body.data[0].practices[i].name);
+        newPatients.push(body.data[0].practices[i].accepts_new_patients);
+        docPhone.push(body.data[0].practices[i].phones[0].number);
+        docAddress.push(body.data[0].practices[i].visit_address.street + ", " +  body.data[0].practices[i].visit_address.street2 + ", " + body.data[0].practices[i].visit_address.city + ", " + body.data[0].practices[i].visit_address.state + ", " + body.data[0].practices[i].visit_address.zip);
+
+      };
+
+      console.log(docAddress);
+      console.log(docName);
+      console.log(docPhone);
+      console.log(newPatients);
+      console.log(body.data[0].practices[0].accepts_new_patients);
+      $(".doctorList").html(`Here is a list of Doctors: ${docName}`);
     }, function(error) {
       $('.showErrors').text(`There was an error processing your request: ${error.message}`);
-      // ${body.data[2].profile.first_name}
-      // console.log(body.data.profile);
     });
   });
 
@@ -34,22 +48,13 @@ $(document).ready(function () {
 
     promise2.then(function(response) {
       const body2 = JSON.parse(response);
-      // console.log(body2.data[0].profile.first_name);
-      // console.log(body2.data[0].practices);
-      // console.log(body2.data[0].practices[0].name);
-
-      let docs = [];
+      let docName = [];
       for (var i = 0; i < body2.data[0].practices.length; i++) {
-        docs.push(body2.data[0].practices[i].name);
-        console.log(docs);
-      }
-
-
-      $(".doctorList").html(`Here is a list of Doctors: ${docs} ${body2.data[0].practices[0].name}`);
+        docName.push(body2.data[0].practices[i].name);
+      };
+      $(".doctorList").html(`Here is a list of Doctors: ${docName}`);
     }, function(error) {
       $('.showErrors').text(`There was an error processing your request: ${error.message}`);
-      // ${body.data[2].profile.first_name}
-      // console.log(body.data.profile);
     });
   });
 

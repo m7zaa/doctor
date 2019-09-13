@@ -23,46 +23,28 @@ $(document).ready(function () {
        $(".doctorList").html(`There are no doctors that meet your search perameters`);
       } else {
         for (var i = 0; i < body.data.length; i++) {
+          docName.push(body.data[i].profile.first_name + " " + body.data[i].profile.last_name);
           newPatients.push(body.data[i].practices[0].accepts_new_patients);
-          // docPhone.push(body.data[0].practices[i].phones[0].number);
-          // docAddress.push(body.data[0].practices[i].visit_address.street + ", " +  body.data[0].practices[i].visit_address.street2 + ", " + body.data[0].practices[i].visit_address.city + ", " + body.data[0].practices[i].visit_address.state + ", " + body.data[0].practices[i].visit_address.zip);
-          $(".doctorList").html(`Here is a list of Doctors: ${docName}`);
+          docPhone.push(body.data[i].practices[0].phones[0].number);
+          docAddress.push(body.data[i].practices[0].visit_address.street + ", " +  body.data[i].practices[0].visit_address.street2 + ", " + body.data[i].practices[0].visit_address.city + ", " + body.data[i].practices[0].visit_address.state + ", " + body.data[i].practices[0].visit_address.zip);
+           // $(".doctorList").html(`Here is a list of Doctors: ${docName}`);
         };
-        console.log(newPatients);
-        console.log(body);
-
-
-
-        for (var j = 0; j < body.data.length; j++) {
-          docName.push(body.data[j].profile.first_name + " " + body.data[j].profile.last_name);
-        }
-        console.log(docName);
-
-
-
-
       };
-
-      // var list = [];
-      // for (var x = 0; x < docName.length; x++)
-      // list.push({'name': docName[x], 'phone': docPhone[x], "address": docAddress[x], 'accepting new patients': newPatients[x]});
-      // console.log(list);
-      //
-      // //2) sort:
-      // list.sort(function(a, b) {
-      //     return ((a.name < b.name) ? -1 : ((a.name == b.name) ? 0 : 1));
-      //     //Sort could be modified to, for example, sort on the age
-      //     // if the name is the same.
-      // });
-      //
-      // //3) separate them back out:
-      // for (var k = 0; k < list.length; k++) {
-      //     docName[k] = list[k].name;
-      //     docPhone[k] = list[k].phone;
-      //     docAddress[k] = list[k].address;
-      //     newPatients[k] = list[k].newPatient;
-      // }
-
+      //I got this idea below from https://stackoverflow.com/questions/11499268/sort-two-arrays-the-same-way
+      var list = [];
+      for (var x = 0; x < docName.length; x++)
+      list.push({'name': docName[x], 'phone': docPhone[x], "address": docAddress[x], 'availibility': newPatients[x]});
+      //I got this from https://stackoverflow.com/questions/27266901/display-javascript-object-in-html
+      var wrapper = $('.doctorList'), container;
+      for (var key in list){
+        container = $('<div id="grocery_item" class="container"></div>');
+        wrapper.append(container);
+        container.append('<div class="item">' + key +'</div>');
+        container.append('<div class="category">' + list[key].name +'</div>');
+        container.append('<div class="price">' + list[key].phone +'</div>');
+        container.append('<div class="price">' + list[key].address +'</div>');
+        container.append('<div class="price">' + list[key].availibility +'</div>');
+    }
 
 
 
@@ -93,29 +75,31 @@ $(document).ready(function () {
         $(".doctorList").text(`There are no doctors that meet your search perameters`);
        console.log("if undefined");
       } else {
-        for (var i = 0; i < body2.data[0].practices.length; i++) {
-          newPatients.push(body2.data[0].practices[i].accepts_new_patients);
-          docPhone.push(body2.data[0].practices[i].phones[0].number);
-          docAddress.push(body2.data[0].practices[i].visit_address.street + ", " +  body2.data[0].practices[i].visit_address.street2 + ", " + body2.data[0].practices[i].visit_address.city + ", " + body2.data[0].practices[i].visit_address.state + ", " + body2.data[0].practices[i].visit_address.zip);
-          $(".doctorList").html(`Here is a list of Doctors: ${docName}`);
+        for (var i = 0; i < body2.data.length; i++) {
+          docName.push(body2.data[i].profile.first_name + " " + body2.data[i].profile.last_name);
+          newPatients.push(body2.data[i].practices[0].accepts_new_patients);
+          docPhone.push(body2.data[i].practices[0].phones[0].number);
+          docAddress.push(body2.data[i].practices[0].visit_address.street + ", " +  body2.data[i].practices[0].visit_address.street2 + ", " + body2.data[i].practices[0].visit_address.city + ", " + body2.data[i].practices[0].visit_address.state + ", " + body2.data[i].practices[0].visit_address.zip);
+          // $(".doctorList").html(`Here is a list of Doctors: ${docName}`);
         };
-        for (var j = 0; j < body2.data.length; j++) {
-          docName.push(body2.data[j].profile.first_name + " " + body2.data[j].profile.last_name);
-        }
       };
-
-      console.log(docAddress);
-      console.log(docName);
-      console.log(docPhone);
-      console.log(newPatients);
-
+      //I got this idea below from https://stackoverflow.com/questions/11499268/sort-two-arrays-the-same-way
+      var list = [];
+      for (var x = 0; x < docName.length; x++)
+      list.push({'name': docName[x], 'phone': docPhone[x], "address": docAddress[x], 'availibility': newPatients[x]});
+      //I got this from https://stackoverflow.com/questions/27266901/display-javascript-object-in-html
+      var wrapper = $('.doctorList'), container;
+      for (var key in list){
+        container = $('<div id="grocery_item" class="container"></div>');
+        wrapper.append(container);
+        container.append('<div class="item">' + key +'</div>');
+        container.append('<div class="category">' + list[key].name +'</div>');
+        container.append('<div class="price">' + list[key].phone +'</div>');
+        container.append('<div class="price">' + list[key].address +'</div>');
+        container.append('<div class="price">' + list[key].availibility +'</div>');
+    }
     }, function(error) {
       $('.showErrors').text(`There was an error processing your request: ${error.message}`);
     });
   });
-
-
-
-
-
 });

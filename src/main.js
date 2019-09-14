@@ -17,6 +17,7 @@ $(document).ready(function () {
       let newPatients = [];
       let docPhone = [];
       let docAddress = [];
+      let docWebsite = [];
       if (body.meta.total === 0) {
        $(".noDoctors").show()
        $(".noDoctors").html(`There are no doctors that meet your search perameters`);
@@ -25,6 +26,7 @@ $(document).ready(function () {
           docName.push(body.data[i].profile.first_name + " " + body.data[i].profile.last_name);
           newPatients.push(body.data[i].practices[0].accepts_new_patients);
           docPhone.push(body.data[i].practices[0].phones[0].number);
+          docWebsite.push(body.data[i].practices[0].website);
           docAddress.push(body.data[i].practices[0].visit_address.street + ", " +  body.data[i].practices[0].visit_address.street2 + ", " + body.data[i].practices[0].visit_address.city + ", " + body.data[i].practices[0].visit_address.state + ", " + body.data[i].practices[0].visit_address.zip);
            // $(".doctorList").html(`Here is a list of Doctors: ${docName}`);
         };
@@ -32,7 +34,7 @@ $(document).ready(function () {
       //I got this idea below from https://stackoverflow.com/questions/11499268/sort-two-arrays-the-same-way
       var list = [];
       for (var x = 0; x < docName.length; x++)
-      list.push({'name': docName[x], 'phone': docPhone[x], "address": docAddress[x], 'availibility': newPatients[x]});
+      list.push({'name': docName[x], 'phone': docPhone[x], "address": docAddress[x], "website": docWebsite[x], 'availibility': newPatients[x]});
       //I got this from https://stackoverflow.com/questions/27266901/display-javascript-object-in-html
       var wrapper = $('.doctorList'), container;
       for (var key in list){
@@ -42,6 +44,7 @@ $(document).ready(function () {
         container.append('<div class="info">' + 'Name: Dr. ' + list[key].name + '</div>');
         container.append('<div class="info">' + 'Phone Number: ' + list[key].phone + '</div>');
         container.append('<div class="info">' + 'Address: ' + list[key].address + '</div>');
+        container.append('<div class="info">' + 'Website: ' + list[key].website + '</div>');
         container.append('<div class="info">' + 'This office has open availibility: ' + list[key].availibility + '</div>');
     }
     }, function(error) {
@@ -60,6 +63,7 @@ $(document).ready(function () {
       let newPatients = [];
       let docPhone = [];
       let docAddress = [];
+      let docWebsite = [];
       if (body2.meta.total === 0) {
         $(".noDoctors").show()
         $(".noDoctors").text(`There are no doctors that meet your search perameters`);
@@ -67,6 +71,7 @@ $(document).ready(function () {
         for (var i = 0; i < body2.data.length; i++) {
           docName.push(body2.data[i].profile.first_name + " " + body2.data[i].profile.last_name);
           newPatients.push(body2.data[i].practices[0].accepts_new_patients);
+          docWebsite.push(body2.data[i].practices[0].website);
           docPhone.push(body2.data[i].practices[0].phones[0].number);
           docAddress.push(body2.data[i].practices[0].visit_address.street + ", " +  body2.data[i].practices[0].visit_address.street2 + ", " + body2.data[i].practices[0].visit_address.city + ", " + body2.data[i].practices[0].visit_address.state + ", " + body2.data[i].practices[0].visit_address.zip);
           // $(".doctorList").html(`Here is a list of Doctors: ${docName}`);
@@ -74,7 +79,7 @@ $(document).ready(function () {
       };
       var list = [];
       for (var x = 0; x < docName.length; x++)
-      list.push({'name': docName[x], 'phone': docPhone[x], "address": docAddress[x], 'availibility': newPatients[x]});
+      list.push({'name': docName[x], 'phone': docPhone[x], "address": docAddress[x], "website": docWebsite[x], 'availibility': newPatients[x]});
       var wrapper = $('.doctorList'), container;
       for (var key in list){
         container = $('<div class="container"></div>');
@@ -83,6 +88,7 @@ $(document).ready(function () {
         container.append('<div class="info">' + 'Name: Dr. ' + list[key].name + '</div>');
         container.append('<div class="info">' + 'Phone Number: ' + list[key].phone + '</div>');
         container.append('<div class="info">' + 'Address: ' + list[key].address + '</div>');
+        container.append('<div class="info">' + 'Website: ' + list[key].website + '</div>');
         container.append('<div class="info">' + 'This office has open availibility: ' + list[key].availibility + '</div>');
     }
     }, function(error) {

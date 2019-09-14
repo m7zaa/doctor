@@ -1,5 +1,4 @@
 // Back-end
-
 export class SymptomFinder {
   findSymptom(symptom) {
     return new Promise(function(resolve, reject) {
@@ -17,7 +16,6 @@ export class SymptomFinder {
     });
   }
 }
-
 export class NameFinder {
   findName(lastName) {
     return new Promise(function(resolve, reject) {

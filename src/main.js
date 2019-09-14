@@ -18,8 +18,8 @@ $(document).ready(function () {
       let docPhone = [];
       let docAddress = [];
       if (body.meta.total === 0) {
-       console.log("if undefined");
-       $(".doctorList").html(`There are no doctors that meet your search perameters`);
+       $(".noDoctors").show()
+       $(".noDoctors").html(`There are no doctors that meet your search perameters`);
       } else {
         for (var i = 0; i < body.data.length; i++) {
           docName.push(body.data[i].profile.first_name + " " + body.data[i].profile.last_name);
@@ -61,8 +61,8 @@ $(document).ready(function () {
       let docPhone = [];
       let docAddress = [];
       if (body2.meta.total === 0) {
-        $(".doctorList").text(`There are no doctors that meet your search perameters`);
-       console.log("if undefined");
+        $(".noDoctors").show()
+        $(".noDoctors").text(`There are no doctors that meet your search perameters`);
       } else {
         for (var i = 0; i < body2.data.length; i++) {
           docName.push(body2.data[i].profile.first_name + " " + body2.data[i].profile.last_name);

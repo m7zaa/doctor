@@ -2,11 +2,12 @@ import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
-import { NameFinder, SymptomFinder, Doctors } from './doctor';
+import { NameFinder, SymptomFinder } from './doctor';
 
 $(document).ready(function () {
   $("#searchSymptom").submit(function() {
     event.preventDefault();
+    $('.info').hide();
     const symptom = $("#symptomInput").val();
     let symptomFinder = new SymptomFinder(symptom);
     let promise = symptomFinder.findSymptom(symptom);
@@ -16,8 +17,6 @@ $(document).ready(function () {
       let newPatients = [];
       let docPhone = [];
       let docAddress = [];
-
-
       if (body.meta.total === 0) {
        console.log("if undefined");
        $(".doctorList").html(`There are no doctors that meet your search perameters`);
@@ -37,40 +36,30 @@ $(document).ready(function () {
       //I got this from https://stackoverflow.com/questions/27266901/display-javascript-object-in-html
       var wrapper = $('.doctorList'), container;
       for (var key in list){
-        container = $('<div id="grocery_item" class="container"></div>');
+        container = $('<div class="container"></div>');
         wrapper.append(container);
-        container.append('<div class="item">' + key +'</div>');
-        container.append('<div class="category">' + list[key].name +'</div>');
-        container.append('<div class="price">' + list[key].phone +'</div>');
-        container.append('<div class="price">' + list[key].address +'</div>');
-        container.append('<div class="price">' + list[key].availibility +'</div>');
+        container.append('<div class="info">' + key +'</div>');
+        container.append('<div class="info">' + 'Name: Dr. ' + list[key].name + '</div>');
+        container.append('<div class="info">' + 'Phone Number: ' + list[key].phone + '</div>');
+        container.append('<div class="info">' + 'Address: ' + list[key].address + '</div>');
+        container.append('<div class="info">' + 'This office has open availibility: ' + list[key].availibility + '</div>');
     }
-
-
-
-
-
-
     }, function(error) {
       $('.showErrors').text(`There was an error processing your request: ${error.message}`);
     });
   });
-
-
-
   $("#searchName").submit(function() {
     event.preventDefault();
+    $('.info').hide();
     const lastName = $("#nameInput").val();
     let nameFinder = new NameFinder(lastName);
     let promise2 = nameFinder.findName(lastName);
-
     promise2.then(function(response) {
       const body2 = JSON.parse(response);
       let docName = [];
       let newPatients = [];
       let docPhone = [];
       let docAddress = [];
-
       if (body2.meta.total === 0) {
         $(".doctorList").text(`There are no doctors that meet your search perameters`);
        console.log("if undefined");
@@ -83,20 +72,18 @@ $(document).ready(function () {
           // $(".doctorList").html(`Here is a list of Doctors: ${docName}`);
         };
       };
-      //I got this idea below from https://stackoverflow.com/questions/11499268/sort-two-arrays-the-same-way
       var list = [];
       for (var x = 0; x < docName.length; x++)
       list.push({'name': docName[x], 'phone': docPhone[x], "address": docAddress[x], 'availibility': newPatients[x]});
-      //I got this from https://stackoverflow.com/questions/27266901/display-javascript-object-in-html
       var wrapper = $('.doctorList'), container;
       for (var key in list){
-        container = $('<div id="grocery_item" class="container"></div>');
+        container = $('<div class="container"></div>');
         wrapper.append(container);
-        container.append('<div class="item">' + key +'</div>');
-        container.append('<div class="category">' + list[key].name +'</div>');
-        container.append('<div class="price">' + list[key].phone +'</div>');
-        container.append('<div class="price">' + list[key].address +'</div>');
-        container.append('<div class="price">' + list[key].availibility +'</div>');
+        container.append('<div class="info">' + key +'</div>');
+        container.append('<div class="info">' + 'Name: Dr. ' + list[key].name + '</div>');
+        container.append('<div class="info">' + 'Phone Number: ' + list[key].phone + '</div>');
+        container.append('<div class="info">' + 'Address: ' + list[key].address + '</div>');
+        container.append('<div class="info">' + 'This office has open availibility: ' + list[key].availibility + '</div>');
     }
     }, function(error) {
       $('.showErrors').text(`There was an error processing your request: ${error.message}`);

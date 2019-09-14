@@ -35,16 +35,3 @@ export class NameFinder {
     });
   }
 }
-
-
-
-
-
-
-
-export class Doctors {
-
-  constructor() {
-
-  }
-}
